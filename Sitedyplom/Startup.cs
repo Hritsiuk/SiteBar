@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sitedyplom.Data;
+using Sitedyplom.Data.Repositories.Abstract;
+using Sitedyplom.Data.Repositories.EntityFrameworks;
 using Sitedyplom.Models;
 using System;
 using System.Collections.Generic;
@@ -26,10 +29,10 @@ namespace Sitedyplom
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IClothesItemsRepository, EFClothesRepository>();
 
 
-
-
+           
             services.AddTransient<DataManager>();
             services.AddTransient<CurrentUModel>();
 
@@ -37,6 +40,17 @@ namespace Sitedyplom
              options.UseSqlServer(
                  Configuration.GetConnectionString("DefaultConnection")));
 
+                services.AddIdentity<User, IdentityRole>(options =>
+                {
+                    options.User.RequireUniqueEmail = true;
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireDigit = false;
+
+
+                }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

@@ -11,8 +11,9 @@ namespace Sitedyplom.Data
     {
        
         public DbSet<User> UsersInformation { get; set; }
-       
 
+        public DbSet<Clothes> Clothes { get; set; }
+        public DbSet<Tag> Tags { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

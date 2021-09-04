@@ -8,7 +8,8 @@ namespace Sitedyplom.Models
 {
     public class User : IdentityUser
     {
-
+        public float Balance { get; set; }
+        
         public string Position { get; set; }
 
     }
