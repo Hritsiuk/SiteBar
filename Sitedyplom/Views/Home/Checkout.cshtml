@@ -1,0 +1,130 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="checkout-main-area pt-70 pb-70">
+    <div class="container">
+        <div class="checkout-wrap pt-30">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="billing-info-wrap mr-50">
+                        <script>
+                            function setValue() {
+                                document.getElementById('json4').value = getCookie("username").toString();
+
+                                document.getElementById('submit3').click();
+
+                            }
+                        </script>
+                        <form asp-controller="Home" asp-action="Checkout" method="post">
+                            <h3>Billing Details</h3>
+                            <input hidden name="total" value="@ViewBag.total" type="text" />
+                            <input hidden id="json4" name="json" value="getCookie('username')" type="text" />
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="billing-info mb-20">
+                                        <label>First Name <abbr class="required" title="required">*</abbr></label>
+                                        <input type="text" name="firstname">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="billing-info mb-20">
+                                        <label>Last Name <abbr class="required" title="required">*</abbr></label>
+                                        <input type="text" name="lastname">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="billing-select mb-20">
+                                        <label>Country <abbr class="required" title="required">*</abbr></label>
+                                        <select name="country">
+                                            <option>Azerbaijan</option>
+                                            <option>Bahamas</option>
+                                            <option>Bahrain</option>
+                                            <option>Bangladesh</option>
+                                            <option>Barbados</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="billing-info mb-20">
+                                        <label>Street Address <abbr class="required" title="required">*</abbr></label>
+                                        <input class="billing-address" placeholder="Full address" type="text" name="address">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="billing-info mb-20">
+                                        <label>Phone <abbr class="required" title="required">*</abbr></label>
+                                        <input type="text" name="phone">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="billing-info mb-20">
+                                        <label>Email Address <abbr class="required" title="required">*</abbr></label>
+                                        <input type="text" name="email">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="additional-info-wrap">
+                                <label>Order notes</label>
+                                <textarea placeholder="Notes about your order, e.g. special notes for delivery. " name="comment"></textarea>
+                            </div>
+                            <button type="submit" id="submit3" hidden></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="your-order-area">
+                        <h3>Your order</h3>
+                        <div class="your-order-wrap gray-bg-4">
+                            <div class="your-order-info-wrap">
+                                <div class="your-order-info">
+                                    <ul>
+                                        <li>Product <span>Total</span></li>
+                                    </ul>
+                                </div>
+                                <div class="your-order-middle">
+                                    <ul>
+                                        @foreach (ClothesOnView item in Model)
+                                        {
+                                            <li>@item.clothes.name  X  @item.count <span>$@item.price</span></li>
+
+                                        }
+
+                                       
+                                    </ul>
+                                </div>
+                                <div class="your-order-info order-total">
+                                    <ul>
+                                        <li>Total <span>$@ViewBag.total </span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="payment-method">
+                           
+                                <div class="pay-top sin-payment">
+                                    <input id="payment-method-3" class="input-radio" type="radio" value="cheque" name="payment_method">
+                                    <label for="payment-method-3">Cash on delivery </label>
+                                    <div class="payment-box payment_method_bacs">
+                                        <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
+                                    </div>
+                                </div>
+                                <div class="pay-top sin-payment sin-payment-3">
+                                    <input id="payment-method-4" class="input-radio" type="radio" value="cheque" name="payment_method">
+                                    <label for="payment-method-4">PayPal <img alt="" src="~/img/icon-img/payment.png"><a href="#">What is PayPal?</a></label>
+                                    <div class="payment-box payment_method_bacs">
+                                        <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Place-order mt-40">
+                            <a onclick="setValue()">Place Order</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

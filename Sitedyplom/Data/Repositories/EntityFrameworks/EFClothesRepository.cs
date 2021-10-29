@@ -29,8 +29,11 @@ namespace Sitedyplom.Data.Repositories.EntityFrameworks
         }
 
         public void SaveClothesItem(Clothes entity)
-        {
-            context.Entry(entity).State = EntityState.Added;// объект будет добавлен как новый
+        {/*
+            context.Entry(entity).State = EntityState.Added;// объект будет добавлен как новый*/
+            if (context.Clothes.Where(p =>p.Id==entity.Id).First()==null)
+            context.Clothes.Add(entity);
+
             context.SaveChanges();
         }
 

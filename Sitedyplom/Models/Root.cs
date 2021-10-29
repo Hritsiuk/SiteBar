@@ -5,10 +5,14 @@ using System.Threading.Tasks;
 
 namespace Sitedyplom.Models
 {
-    public class Category
+    public struct Arr
     {
-        public Guid Id { get; set; }
         public string name { get; set; }
-        public ICollection<Clothes> clothes { get; set; }
+        public int count { get; set; }
+    }
+
+    public struct Root
+    {
+        public List<Arr> arr { get; set; }
     }
 }

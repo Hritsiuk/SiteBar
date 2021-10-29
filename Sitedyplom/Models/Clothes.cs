@@ -16,6 +16,7 @@ namespace Sitedyplom.Models
         public string brand { get; set; }
         public List<Tag> tags { get; set; }
         public string img { get; set; }
+        public Guid categoryId { get; set; }
         public Category category { get; set; }
     }
 }

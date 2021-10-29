@@ -32,7 +32,7 @@ namespace Sitedyplom
             services.AddTransient<IClothesItemsRepository, EFClothesRepository>();
 
 
-           
+            services.AddTransient<Category>();
             services.AddTransient<DataManager>();
             services.AddTransient<CurrentUModel>();
 

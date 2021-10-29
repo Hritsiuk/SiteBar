@@ -1,0 +1,86 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="cart-main-area pt-95 pb-100">
+    <div class="container">
+        <h3 class="cart-page-title">Your cart items</h3>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <form action="#" onsubmit="return false">
+                    <div class="table-content table-responsive cart-table-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Product Name</th>
+                                    <th>Until Price</th>
+                                    <th>Qty</th>
+                                    <th>Subtotal</th>
+                                    <th>action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (ClothesOnView cl in Model)
+                                {
+                                    <tr>
+                                        <td class="product-thumbnail">
+                                            <a href="#"><img src="@cl.clothes.img" alt=""></a>
+                                        </td>
+                                        <td class="product-name"><a href="#">@cl.clothes.name</a></td>
+                                        <td class="product-price-cart"><span class="amount">$@cl.clothes.price</span></td>
+                                        <td class="product-quantity">
+
+                                            <div class="cart-plus-minus">
+                                                <div class="dec qtybutton">-</div>
+                                                <input class="cart-plus-minus-box" onchange="addcount('@cl.clothes.Id', this.value,@cl.clothes.price, this)" type="text" name="qtybutton" value="@cl.count">
+                                                <div class="inc qtybutton">+</div>
+                                            </div>
+
+                                        </td>
+                                        <td class="product-subtotal">$@cl.price</td>
+                                        <td class="product-remove">
+                                            <a onclick="del(this,'@cl.clothes.Id',@cl.clothes.price)"><i class="sli sli-close"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    
+
+
+
+                </form>
+                <div class="row">
+    <div class="col-lg-12">
+        <div class="cart-shiping-update-wrapper">
+            <div class="cart-shiping-update">
+                <a href="/Home/Shop">Continue Shopping</a>
+            </div>
+            <div class="cart-clear">
+                <a onclick="setValue()">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+</div>
+             
+                <form asp-controller="Home" asp-action="Checkout" method="get">
+                    <script>
+
+                        function setValue() {
+                            document.getElementById('json2').value = getCookie("username").toString();
+
+                            document.getElementById('submit2').click();
+
+                        }
+                    </script>
+                    <input type="text" hidden="hidden" id="json2" name="json" value="" />
+
+                    <button hidden="hidden" type="submit" id="submit2" style="background-color: #f5ab1b;border:none "></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -23,16 +23,16 @@ namespace Sitedyplom.Controllers
             db = context;
         }
 
-        [Authorize]
+        
         public IActionResult Index()
         {
-
+            
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(CreateUserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -40,7 +40,7 @@ namespace Sitedyplom.Controllers
                 if (user != null)
                 {
                     await signInManager.SignOutAsync();
-                    Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+                    Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
                     if (result.Succeeded)
                     {
 
@@ -51,6 +51,13 @@ namespace Sitedyplom.Controllers
             }
 
             return View(model);
+        }
+        [HttpGet]
+        public IActionResult Login()
+        {
+        
+
+            return View(new CreateUserViewModel());
         }
         [HttpGet]
         public IActionResult Register()
@@ -82,10 +89,12 @@ namespace Sitedyplom.Controllers
             }
             return View(model);
         }
-        public async Task<IActionResult> LogoutAsync()
+
+        [Authorize]
+        public async Task<IActionResult> Logout()
         {
            
-            await signInManager.SignOutAsync();
+           await signInManager.SignOutAsync();
 
             return RedirectToAction("Index", "Home");
         }
